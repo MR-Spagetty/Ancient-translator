@@ -40,13 +40,13 @@ public class AncientChar {
     }
 
     public String toString() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         for (int i = 0; i < this.ancient.length; i++) {
             if ((i / 3 > 0) && (i % 3 == 0)) {
-                out += '\n';
+                out.append('\n');
             }
-            out += this.ancient[i] ? '█' : ' ';
+            out.append(this.ancient[i] ? '█' : ' ');
         }
-        return out;
+        return out.toString();
     }
 }
