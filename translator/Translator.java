@@ -174,8 +174,13 @@ public class Translator {
             int blockSize = 0;
             for (int i = 0; i < wrapping.length(); i++) {
                 if (blockSize > wrapLength) {
-                    wrapping.insert(i, '\n');
-                    blockSize = 0;
+                    if (wrapping.charAt(i) == ' ') {
+                        wrapping.setCharAt(i, '\n');
+                        blockSize = -1;
+                    } else {
+                        wrapping.insert(i, '\n');
+                        blockSize = 0;
+                    }
                 }
                 blockSize++;
             }
@@ -228,11 +233,11 @@ public class Translator {
             System.exit(1);
         }
         String in = args[lastArg + 1];
-        if (toAncient){
+        if (toAncient) {
             in = wrap(wrapLength, in);
         }
         String out = translate(toAncient, in);
-        if (!toAncient){
+        if (!toAncient) {
             out = wrap(wrapLength, out);
         }
 
