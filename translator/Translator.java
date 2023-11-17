@@ -15,7 +15,7 @@ public class Translator {
         for (int i = 0; i <= 9; i++) {
             out.add(new AncientNum(i));
         }
-        try (Scanner data = new Scanner(Path.of("alphabet"))) {
+        try (Scanner data = new Scanner(Translator.class.getClassLoader().getResourceAsStream("alphabet"))) {
             while (data.hasNextLine()) {
                 String id = data.next();
                 String pixelData = data.next();
@@ -28,9 +28,6 @@ public class Translator {
                     out.add(new AncientChar(plaintext, pixels));
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Could not open alphabet file: " + e);
-            System.exit(1);
         } catch (NoSuchElementException e) {
             throw new NoSuchElementException("Malformed alphabet file: " + e);
         }
@@ -164,7 +161,10 @@ public class Translator {
             out.append('\n');
         }
         // remove trailing \n
+        System.out.println(out.length());
         out.deleteCharAt(out.length() - 1);
+        out.deleteCharAt(out.length() - 1);
+        System.out.println(out.length());
         return out.toString();
     }
 
