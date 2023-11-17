@@ -168,9 +168,26 @@ public class Translator {
         return out.toString();
     }
 
+    private static String wrap(int wrapLength, String in) {
+        if (wrapLength > 0) {
+            StringBuilder wrapping = new StringBuilder(in);
+            int blockSize = 0;
+            for (int i = 0; i < wrapping.length(); i++) {
+                if (blockSize > wrapLength) {
+                    wrapping.insert(i, '\n');
+                    blockSize = 0;
+                }
+                blockSize++;
+            }
+            return wrapping.toString();
+        }
+        return in;
+    }
+
     public static void main(String[] args) {
         boolean toAncient = true;
         int wrapLength = 0;
+        Path inPath, outPath = null;
         int lastArg = -1;
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
@@ -206,6 +223,19 @@ public class Translator {
             }
             }
         }
-        System.out.println(translate(toAncient, args[lastArg + 1]));
+        if (lastArg + 1 >= args.length) {
+            System.out.println("You must supply a phrase to be translated.");
+            System.exit(1);
+        }
+        String in = args[lastArg + 1];
+        if (toAncient){
+            in = wrap(wrapLength, in);
+        }
+        String out = translate(toAncient, in);
+        if (!toAncient){
+            out = wrap(wrapLength, out);
+        }
+
+        System.out.println(out);
     }
 }
