@@ -1,7 +1,7 @@
 package translator;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * AncientChar
@@ -48,5 +48,13 @@ public class AncientChar {
             out.append(this.ancient[i] ? '█' : ' ');
         }
         return out.toString();
+    }
+
+    public boolean ancientEquals(AncientChar other){
+        return toString().equals(other.toString());
+    }
+
+    public boolean linesEqual(List<String> lines){
+        return toLines().equals(lines);
     }
 }
